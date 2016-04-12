@@ -12,18 +12,20 @@ void DEBUG_LOG(const char *msg, ...);
 
 class LOG {
 private:
+	LOG();
+	~LOG();
+	void create_log_file();
+public:
+	static LOG *get_share_log(); 
+	void write_log(const char *msg);
+private:
 	static LOG *m_log;	
 	FILE *fp;
 	char filepath[32];
 	char message[256];
 	time_t tim;
 	struct tm *t;
-private:
-	LOG();
-	~LOG();
-public:
-	static LOG *get_share_log(); 
-	void write_log(const char *msg);
+	struct tm last_log_time;
 };
 
 #endif
